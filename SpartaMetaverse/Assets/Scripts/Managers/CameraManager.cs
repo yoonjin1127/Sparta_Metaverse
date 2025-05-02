@@ -6,6 +6,8 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField] private Transform target;
 
+    public static CameraManager Instance;
+
     public float cameraSpeed = 5.0f;
     private Camera camera;
 

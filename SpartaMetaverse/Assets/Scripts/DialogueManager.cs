@@ -13,6 +13,9 @@ public class DialogueManager : MonoBehaviour
     public GameObject scanObject;
     public bool isAction = false;
 
+    // 선택지 버튼
+    public GameObject miniGameButton;
+
     // 초상화를 저장할 배열
     public Sprite[] portraitArr;
 
@@ -31,6 +34,7 @@ public class DialogueManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
         dialogueData = new Dictionary<int, string[]>();
         portraitData = new Dictionary<int, Sprite>();
         GenerateData();
@@ -40,7 +44,7 @@ public class DialogueManager : MonoBehaviour
     {
         scanObject = scanObj;
         ObjectData objectData = scanObject.GetComponent<ObjectData>();
-        Dialogue(objectData.id, objectData.isNpc);
+        Dialogue(objectData.id, objectData.isNpc, objectData.isPortal);
             
         dialoguePanel.SetActive(isAction);
     }
@@ -78,7 +82,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void Dialogue(int id, bool isNpc)
+    void Dialogue(int id, bool isNpc, bool isPortal)
     {
         string dialogueData = GetDialogue(id, dialogueIndex);
 
@@ -98,6 +102,14 @@ public class DialogueManager : MonoBehaviour
             // npc일 때만 초상화 출력
             portraitImage.color = new Color(1, 1, 1, 1);
         }
+
+        else if(isPortal)
+        {
+            dialogueText.text = dialogueData;
+            portraitImage.color = new Color(1, 1, 1, 0);
+            miniGameButton.SetActive(true);
+        }
+
         else
         {
             dialogueText.text = dialogueData;

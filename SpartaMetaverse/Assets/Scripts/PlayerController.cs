@@ -19,18 +19,42 @@ public class PlayerController : MonoBehaviour
     float h;
     float v;
 
+    public static PlayerController Instance;
+
     private void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         spr = GetComponentInChildren<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
         diaMan = DialogueManager.instance;
     }
 
     private void Update()
     {
-        h = diaMan.isAction ? 0 : Input.GetAxis("Horizontal");
-        v = diaMan.isAction ? 0 : Input.GetAxis("Vertical");
+        if(diaMan == null)
+        {
+            h = Input.GetAxis("Horizontal");
+            v = Input.GetAxis("Vertical");
+        }
+        else
+        {
+            h = diaMan.isAction ? 0 : Input.GetAxis("Horizontal");
+            v = diaMan.isAction ? 0 : Input.GetAxis("Vertical");
+        }
+
 
         // 플레이어 애니메이션 및 방향 저장
         if (h < 0)
