@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    DialogueManager diaMan;
+
     public float speed;
     Animator animator;
     SpriteRenderer spr;
@@ -22,12 +24,13 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         spr = GetComponentInChildren<SpriteRenderer>();
+        diaMan = DialogueManager.instance;
     }
 
     private void Update()
     {
-        h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
+        h = diaMan.isAction ? 0 : Input.GetAxis("Horizontal");
+        v = diaMan.isAction ? 0 : Input.GetAxis("Vertical");
 
         // 플레이어 애니메이션 및 방향 저장
         if (h < 0)
@@ -66,7 +69,7 @@ public class PlayerController : MonoBehaviour
         // 스페이스바는 유니티에서 점프로 등록되어 있다
         if (Input.GetButtonDown("Jump") && scanObject != null)
         {
-            Debug.Log(scanObject.name);
+            diaMan.Action(scanObject);
         }
     }
 
