@@ -20,4 +20,10 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    private void Start()
+    {
+        int miniBestScore = PlayerPrefs.GetInt("BestScore", 0);
+        miniBestScore.ToString();
+    }
 }

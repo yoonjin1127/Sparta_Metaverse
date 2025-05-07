@@ -15,7 +15,7 @@ public class GoMiniGameButton : MonoBehaviour
 
     public void StartMiniGame()
     {
-        SceneManager.LoadScene("MiniGame1Scene");
+        SceneManager.LoadScene("FlappyPlaneScene");
         gameObject.SetActive(false);
     }
 

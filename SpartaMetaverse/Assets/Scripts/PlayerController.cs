@@ -23,15 +23,10 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
-        {
+
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         spr = GetComponentInChildren<SpriteRenderer>();
