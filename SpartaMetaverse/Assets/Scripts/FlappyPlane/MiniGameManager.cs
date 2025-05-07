@@ -8,7 +8,7 @@ public class MiniGameManager : MonoBehaviour
     static MiniGameManager miniGameManager;
     public static MiniGameManager Instance { get { return miniGameManager; } }
 
-    private int currentScore = 0;
+    public int currentScore = 0;
 
     UIManager uiManager;
     public UIManager UIManager { get { return uiManager; } }
@@ -26,13 +26,13 @@ public class MiniGameManager : MonoBehaviour
 
     public void GameOver()
     {
+        if(currentScore >= 5)
+        {
+            GameManager.Instance.SetClear(true);
+        }
+
         Debug.Log("Game Over");
         uiManager.SetRestart();
-    }
-
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void AddScore(int score)

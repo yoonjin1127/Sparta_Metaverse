@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public State CurrentState { get; private set; } = State.Main;
+    public bool isMiniClear { get; private set; } = false;
 
     private void Awake()
     {
@@ -13,6 +17,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -21,9 +26,23 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Start()
+    public void SetClear(bool value)
     {
-        int miniBestScore = PlayerPrefs.GetInt("BestScore", 0);
-        miniBestScore.ToString();
+        isMiniClear = value;
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == "MainScene")
+        {
+            MainUIManager.Instance.ClearInfo();
+        }
+    }
+
+
+    public void SetState(State newState)
+    {
+       CurrentState = newState;
+    }
+
 }

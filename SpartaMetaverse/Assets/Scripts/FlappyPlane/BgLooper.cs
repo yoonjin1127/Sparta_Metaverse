@@ -11,7 +11,7 @@ public class BgLooper : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Obstacles[] obstacles = GameObject.FindObjectsOfType<Obstacles>();
+        Obstacle[] obstacles = GameObject.FindObjectsOfType<Obstacle>();
         obstacleLastPosition = obstacles[0].transform.position;
         obstacleCount = obstacles.Length;
 
@@ -36,7 +36,7 @@ public class BgLooper : MonoBehaviour
             return;
         }
 
-        Obstacles obstacle = collision.GetComponent<Obstacles>();
+        Obstacle obstacle = collision.GetComponent<Obstacle>();
 
         if (obstacle != null)
         {

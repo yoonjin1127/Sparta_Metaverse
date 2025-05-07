@@ -15,6 +15,7 @@ public class GoMiniGameButton : MonoBehaviour
 
     public void StartMiniGame()
     {
+        GameManager.Instance.SetState(State.MiniGame);
         SceneManager.LoadScene("FlappyPlaneScene");
         gameObject.SetActive(false);
     }
@@ -24,6 +25,17 @@ public class GoMiniGameButton : MonoBehaviour
         gameObject.SetActive(false);
         diaMan.dialoguePanel.SetActive(false);
         diaMan.isAction = false;
+    }
+
+    public void BackMain()
+    {
+        GameManager.Instance.SetState(State.Main);
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

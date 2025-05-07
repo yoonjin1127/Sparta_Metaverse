@@ -3,37 +3,33 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI restartText;
     public TextMeshProUGUI bestScoreText;
+    public GameObject buttons;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (restartText == null)
-            Debug.LogError("restart text is null");
-
         if (scoreText == null)
             Debug.LogError("score text is null");
 
-        restartText.gameObject.SetActive(false);
-
+        buttons.SetActive(false);
         int bestScore = PlayerPrefs.GetInt("BestScore",0);
         bestScoreText.text = bestScore.ToString();
 
     }
 
     public void SetRestart()
-    {
-        restartText.gameObject.SetActive(true);
+    {       
+        buttons.SetActive(true);
     }
 
     public void UpdateScore(int score)
     {
-        
         scoreText.text = score.ToString();
 
         // 최고기록 갱신
@@ -42,5 +38,6 @@ public class UIManager : MonoBehaviour
             PlayerPrefs.SetInt("BestScore", score);
         }
 
+        PlayerPrefs.SetInt("Score", score);
     }
 }
